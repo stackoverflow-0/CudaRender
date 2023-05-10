@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CudaCompile Include="src\colorBuffer.cu">
+      <Filter>Src</Filter>
+    </CudaCompile>
+    <CudaCompile Include="src\cudaRasterization.cu">
+      <Filter>Src</Filter>
+    </CudaCompile>
+    <CudaCompile Include="src\cudaTexture.cu">
+      <Filter>Src</Filter>
+    </CudaCompile>
+    <CudaCompile Include="src\DisplayManager.cpp">
+      <Filter>Src</Filter>
+    </CudaCompile>
+    <CudaCompile Include="src\main.cu">
+      <Filter>Src</Filter>
+    </CudaCompile>
+    <CudaCompile Include="src\vertexBuffer.cu">
+      <Filter>Src</Filter>
+    </CudaCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header">
+      <UniqueIdentifier>{b2ce0fda-6004-402e-b61e-77af8a344611}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src">
+      <UniqueIdentifier>{82cd805f-4771-4061-a6b8-09fa9a4a09e5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\colorBuffer.cuh">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cudaRasterization.cuh">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cudaTexture.cuh">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DisplayManager.cuh">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stb_image.cuh">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vertexBuffer.cuh">
+      <Filter>Header</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

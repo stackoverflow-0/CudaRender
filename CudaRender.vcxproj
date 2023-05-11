@@ -41,12 +41,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\CudaRender\dependences\assimp\include;D:\CudaRender\dependences\glm;D:\CudaRender\dependences\SDL2-2.26.5\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\CudaRender\dependences\assimp\lib\Debug;D:\CudaRender\dependences\SDL2-2.26.5\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>.\dependences\assimp\include;.\dependences\glm;.\dependences\SDL2-2.26.5\include;$(IncludePath)</IncludePath>
+    <LibraryPath>.\dependences\assimp\lib\Debug;.\dependences\SDL2-2.26.5\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>D:\CudaRender\dependences\assimp\include;D:\CudaRender\dependences\glm;D:\CudaRender\dependences\SDL2-2.26.5\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\CudaRender\dependences\assimp\lib\Debug;D:\CudaRender\dependences\SDL2-2.26.5\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>.\dependences\assimp\include;.\dependences\glm;.\dependences\SDL2-2.26.5\include;$(IncludePath)</IncludePath>
+    <LibraryPath>.\dependences\assimp\lib\Debug;.\dependences\SDL2-2.26.5\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

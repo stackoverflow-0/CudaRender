@@ -68,19 +68,20 @@ void cudaModel::processNode(aiNode* node, const aiScene* scene)
 			aiVector3D uv0 = mesh->mTextureCoords[0][mesh->mFaces[fidx].mIndices[0]];
 			aiVector3D uv1 = mesh->mTextureCoords[0][mesh->mFaces[fidx].mIndices[1]];
 			aiVector3D uv2 = mesh->mTextureCoords[0][mesh->mFaces[fidx].mIndices[2]];
-
+			/*
 			printf("v ; %f %f %f \n", v0.x, v0.y, v0.z);
 			printf("v ; %f %f %f \n", v1.x, v1.y, v1.z);
 			printf("v ; %f %f %f \n", v2.x, v2.y, v2.z);
+			*/
 
 			f.vertex[0] = glm::vec3(v0.x, v0.y, v0.z);
 			f.vertex[1] = glm::vec3(v1.x, v1.y, v1.z);
 			f.vertex[2] = glm::vec3(v2.x, v2.y, v2.z);
-
+			/*
 			printf("uv ; %f %f \n", uv0.x, uv0.y);
 			printf("uv ; %f %f \n", uv1.x, uv1.y);
 			printf("uv ; %f %f \n", uv2.x, uv2.y);
-
+			*/
 			f.uv[0] = glm::vec2(uv0.x, uv0.y);
 			f.uv[1] = glm::vec2(uv1.x, uv1.y);
 			f.uv[2] = glm::vec2(uv2.x, uv2.y);

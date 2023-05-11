@@ -17,7 +17,7 @@ int main(int argc, char* argv[]) {
     dim3 grid(1, 1, 1);
     dim3 block(16, 16, 1);
     cudaModel cube;
-    cube.load("./model/cube.obj");
+    cube.load("./model/cube.glb");
     //auto vb = allocVertexBuffer(10);
     //auto trans_vb = allocVertexBuffer(10);
 

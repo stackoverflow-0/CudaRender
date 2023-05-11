@@ -32,7 +32,7 @@ void freeVertexBuffer(vertexBuffer * vb) {
 }
 
 __global__ void cudaApplyTrans(const vertexBuffer * vb,const glm::mat4 * transMat, vertexBuffer* tmpVB) {
-	int idx = blockIdx.z * blockDim.x * blockDim.y * blockDim.z + blockIdx.y * blockDim.x * blockDim.y +  blockIdx.x * blockDim.x + threadIdx.x;
+	int idx = threadIdx.z * blockDim.x * blockDim.y + threadIdx.y * blockDim.x + threadIdx.x;
 	int step = blockDim.x * blockDim.y * blockDim.z * gridDim.x * gridDim.y * gridDim.z;
 	const int n = vb->face_num;
 	for (; idx < n; idx+=step) {

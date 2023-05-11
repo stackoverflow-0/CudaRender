@@ -91,7 +91,7 @@ void faceRasterization(face * f,const float top,const float bottom,const float l
 
 __global__ 
 void cudaRasterization(vertexBuffer * vb, zbuffer * zb, colorBuffer* cb, cudaTextureObject_t tex) {
-	int idx = blockIdx.x * blockDim.x + threadIdx.x;
+	int idx = threadIdx.y * blockDim.x + threadIdx.x;
 	int step = blockDim.x * blockDim.y * blockDim.z * gridDim.x * gridDim.y * gridDim.z;
 	const int face_n = vb->face_num;
 	for (; idx < face_n; idx += step) {

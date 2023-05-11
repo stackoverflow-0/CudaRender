@@ -15,11 +15,9 @@ int main(int argc, char* argv[]) {
     
 
     dim3 grid(1, 1, 1);
-    dim3 block(16, 16, 1);
+    dim3 block(32, 32, 1);
     cudaModel cube;
-    cube.load("./model/cube.glb");
-    //auto vb = allocVertexBuffer(10);
-    //auto trans_vb = allocVertexBuffer(10);
+    cube.load("./model/sphere.obj");
 
     auto zb = createZbuffer(dspMangaer.SCREEN_WIDTH, dspMangaer.SCREEN_HEIGHT);
     auto cb = createColorBuffer(dspMangaer.SCREEN_WIDTH, dspMangaer.SCREEN_HEIGHT);
@@ -28,18 +26,7 @@ int main(int argc, char* argv[]) {
     cudaEvent_t start, stop;
     cudaEventCreate(&start);
     cudaEventCreate(&stop);
-    // cudaEventRecord(start);
-
-    // // for(int i = 0;i < 1000;i++)
-    // Rasterization(grid, block, vb, zb, cb);
-    // printDB(zb);
-    
-    // cudaEventRecord(stop);
-    // cudaEventSynchronize(stop);
-    // float milliseconds = 0;
-    // cudaEventElapsedTime(&milliseconds, start, stop);
-
-    // std::cout << "Rasterization (ms) :" << milliseconds << std::endl;
+    // cudaEventRecord(start)
     
     float milliseconds = 0;
     float cur_time = 0;

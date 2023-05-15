@@ -16,7 +16,6 @@
 #include "colorBuffer.cuh"
 
 
-#include <cuda/std/semaphore>
 
 // #include "cudaTexture.cuh"
 #ifndef __CUDACC__
@@ -28,14 +27,35 @@
 #include <texture_fetch_functions.h>
 #include <device_atomic_functions.hpp>
 #endif // !__CUDACC__
-#include <cuda/atomic>
+
+
+#if defined(__CUDA_ARCH__) && __CUDA_ARCH__ >= 700
+	#define __USE_CUDA_SEMAPHORE__
+	#include <cuda/std/semaphore>
+	
+#else
+	#define __USE_MY_SEMAPHORE__
+class mySemaphore {
+public:
+	__device__
+	bool try_acquire();
+	__device__
+	void release();
+private:
+	int sem;
+};
+#endif
 struct zbuffer {
-	//float * depth;
-	float* depth;
-	int width;
-	int height;
-	int size;
-	cuda::binary_semaphore<cuda::thread_scope_device>* sems;
+		//float * depth;
+		float* depth;
+		int width;
+		int height;
+		int size;
+#if defined(__USE_CUDA_SEMAPHORE__)
+		cuda::binary_semaphore<cuda::thread_scope_device>* sems;
+#elif defined(__USE_MY_SEMAPHORE__)
+		mySemaphore* sems;
+#endif
 };
 
 zbuffer* createZbuffer(int w, int h);
@@ -49,3 +69,5 @@ void freeZbuffer(zbuffer* zb);
 void clearZBuffer(zbuffer* zb);
 
 // bool __PointinTriangle(glm::vec3 A, glm::vec3 B, glm::vec3 C, glm::vec3& P);
+
+

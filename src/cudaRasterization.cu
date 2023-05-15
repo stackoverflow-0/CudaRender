@@ -137,7 +137,12 @@ zbuffer*  createZbuffer(int w, int h) {
 	zb->height = h;
 	zb->size = w * h;
 	cudaMallocManaged(&zb->depth, w * h * sizeof(float));
+#if defined(__USE_CUDA_SEMAPHORE__)
 	cudaMallocManaged(&zb->sems, w * h * sizeof(cuda::binary_semaphore<cuda::thread_scope_device>));
+#elif defined(__USE_MY_SEMAPHORE__)
+	cudaMallocManaged(&zb->sems, w * h * sizeof(mySemaphore));
+#endif
+	
 	//cuda::binary_semaphore<cuda::thread_scope_system> sem[400 * 400];
 	//cudaMemcpy(zb->sems, sem, 400 * 400 * sizeof(cuda::binary_semaphore<cuda::thread_scope_system>), cudaMemcpyHostToHost);
 	//zb->sems = new cuda::binary_semaphore<cuda::thread_scope_system>[w * h]();
@@ -166,3 +171,18 @@ void clearZBuffer(zbuffer* zb)
 	cudaDeviceSynchronize();
 }
 
+#if defined(__USE_MY_SEMAPHORE__)
+__device__
+bool mySemaphore::try_acquire()
+{
+	if (atomicCAS(&sem, 1, 0)) {
+		return true;
+	}
+	return false;
+}
+__device__
+void mySemaphore::release()
+{
+	atomicCAS(&sem, 0, 1);
+}
+#endif

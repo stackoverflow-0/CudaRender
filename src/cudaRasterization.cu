@@ -138,7 +138,7 @@ zbuffer* createZbuffer(int w, int h) {
 	zb->size = w * h;
 	cudaMallocManaged(&zb->depth, w * h * sizeof(float));
 
-	cudaMallocManaged(&zb->sems, w * h * sizeof(int));
+	cudaMallocManaged(&zb->sems, w * h * sizeof(mySemaphore));
 
 	return zb;
 }
@@ -165,7 +165,6 @@ void clearZBuffer(zbuffer* zb)
 	cudaDeviceSynchronize();
 }
 
-#if defined(__CUDA_ARCH__) && __CUDA_ARCH__ < 700
 __device__
 bool mySemaphore::try_acquire()
 {
@@ -179,4 +178,3 @@ void mySemaphore::release()
 {
 	atomicCAS(&sem, 0, 1);
 }
-#endif

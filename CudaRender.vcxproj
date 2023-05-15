@@ -83,10 +83,10 @@
     </Link>
     <CudaCompile>
       <TargetMachinePlatform>64</TargetMachinePlatform>
-      <CodeGeneration>compute_80,sm_80</CodeGeneration>
+      <CodeGeneration>compute_60,sm_60</CodeGeneration>
       <MaxRegCount>0</MaxRegCount>
       <FastMath>true</FastMath>
-      <GPUDebugInfo>true</GPUDebugInfo>
+      <GPUDebugInfo>false</GPUDebugInfo>
     </CudaCompile>
   </ItemDefinitionGroup>
   <ItemGroup>

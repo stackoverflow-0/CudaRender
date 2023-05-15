@@ -1,4 +1,19 @@
 #pragma once
+
+#define   PRINT_MACRO_HELPER(x)   #x  
+#define   PRINT_MACRO(x)   #x"="PRINT_MACRO_HELPER(x)  
+
+#if defined(__CUDA_ARCH__) && __CUDA_ARCH__ >= 700
+	#pragma message(PRINT_MACRO(__CUDA_ARCH__))
+	//#pragma message(PRINT_MACRO(__USE_CUDA_SEMAPHORE__))
+	#include <cuda/std/semaphore>
+#elif defined(__CUDA_ARCH__) && __CUDA_ARCH__ < 700
+	#pragma message(PRINT_MACRO(__CUDA_ARCH__))
+	//#pragma message(PRINT_MACRO(__USE_MY_SEMAPHORE__))
+#endif
+
+
+
 #include <cuda_runtime.h>
 #include <device_launch_parameters.h>
 #include <curand.h>
@@ -28,32 +43,28 @@
 #include <device_atomic_functions.hpp>
 #endif // !__CUDACC__
 
-
-#if defined(__CUDA_ARCH__) && __CUDA_ARCH__ >= 700
-	#define __USE_CUDA_SEMAPHORE__
-	#include <cuda/std/semaphore>
-	
-#else
-	#define __USE_MY_SEMAPHORE__
 class mySemaphore {
 public:
 	__device__
-	bool try_acquire();
+		bool try_acquire();
 	__device__
-	void release();
+		void release();
 private:
 	int sem;
 };
-#endif
+
+
 struct zbuffer {
 		//float * depth;
 		float* depth;
 		int width;
 		int height;
 		int size;
-#if defined(__USE_CUDA_SEMAPHORE__)
+#if defined(__CUDA_ARCH__) && __CUDA_ARCH__ >= 700
+#pragma message("use cuda sema")
 		cuda::binary_semaphore<cuda::thread_scope_device>* sems;
-#elif defined(__USE_MY_SEMAPHORE__)
+#else
+#pragma message("use my sema")
 		mySemaphore* sems;
 #endif
 };
@@ -69,5 +80,4 @@ void freeZbuffer(zbuffer* zb);
 void clearZBuffer(zbuffer* zb);
 
 // bool __PointinTriangle(glm::vec3 A, glm::vec3 B, glm::vec3 C, glm::vec3& P);
-
 

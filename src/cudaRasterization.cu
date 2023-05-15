@@ -130,22 +130,16 @@ void Rasterization(dim3 grid, dim3 block, vertexBuffer * vb, zbuffer* zb, colorB
 
 }
 
-zbuffer*  createZbuffer(int w, int h) {
+zbuffer* createZbuffer(int w, int h) {
 	zbuffer* zb;
 	cudaMallocManaged(&zb, sizeof(zbuffer));
 	zb->width = w;
 	zb->height = h;
 	zb->size = w * h;
 	cudaMallocManaged(&zb->depth, w * h * sizeof(float));
-#if defined(__USE_CUDA_SEMAPHORE__)
-	cudaMallocManaged(&zb->sems, w * h * sizeof(cuda::binary_semaphore<cuda::thread_scope_device>));
-#elif defined(__USE_MY_SEMAPHORE__)
-	cudaMallocManaged(&zb->sems, w * h * sizeof(mySemaphore));
-#endif
-	
-	//cuda::binary_semaphore<cuda::thread_scope_system> sem[400 * 400];
-	//cudaMemcpy(zb->sems, sem, 400 * 400 * sizeof(cuda::binary_semaphore<cuda::thread_scope_system>), cudaMemcpyHostToHost);
-	//zb->sems = new cuda::binary_semaphore<cuda::thread_scope_system>[w * h]();
+
+	cudaMallocManaged(&zb->sems, w * h * sizeof(int));
+
 	return zb;
 }
 
@@ -171,7 +165,7 @@ void clearZBuffer(zbuffer* zb)
 	cudaDeviceSynchronize();
 }
 
-#if defined(__USE_MY_SEMAPHORE__)
+#if defined(__CUDA_ARCH__) && __CUDA_ARCH__ < 700
 __device__
 bool mySemaphore::try_acquire()
 {

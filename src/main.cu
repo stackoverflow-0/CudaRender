@@ -17,7 +17,7 @@ int main(int argc, char* argv[]) {
     dim3 grid(1, 1, 1);
     dim3 block(32, 32, 1);
     cudaModel cube;
-    cube.load("./model/test.obj");
+    cube.load("./model/cube.obj");
 
     auto zb = createZbuffer(dspMangaer.SCREEN_WIDTH, dspMangaer.SCREEN_HEIGHT);
     auto cb = createColorBuffer(dspMangaer.SCREEN_WIDTH, dspMangaer.SCREEN_HEIGHT);
@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
     auto view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
     auto projection = glm::perspective(glm::radians(45.0f), 1.0f, 0.1f, 400.0f);
 
-    cudaTextureObject_t tex = loadImg2Texture("./img/awesomeface.png");
+    cudaTextureObject_t tex = loadImg2Texture("./img/wall.jpg");
     glm::mat4 tmat;
     while (dspMangaer.onLoop) {
         cudaEventRecord(start);
